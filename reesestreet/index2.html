@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scrollytelling Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif, sans-serif;
+      overflow-x: hidden;
+      background: #f8f8f8;
+      height: 100%;
+    }
+
+    #map {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+    }
+
+    /* Title Page */
+    .title-screen {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Sidecar container */
+    .sidecar {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+      border-left: 10px solid #0077be;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+/*data-float-image="data/JJH.png" data-float-image-lat="33.957800" data-float-image-lng="-83.385000" data-float-image-width="150" data-float-image-height="220"*/
+    /* Positioning sidecars */
+    .sidecar-left {
+      margin-right: auto;
+    }
+
+    .sidecar-right {
+      margin-left: auto;
+    }
+
+    .sidecar-center {
+      margin: 0 auto;
+    }
+
+    /* Scrollytelling Container */
+    .scrolly {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Step container (no visual styles here) */
+    .step {
+      margin-bottom: 120vh;
+      position: relative;
+    }
+
+    /* Active step style only affects sidecar inside */
+    .step.is-active .sidecar {
+      border-color: #ff7f0e;
+      background: #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidecar {
+        width: 90% !important;
+        margin: 0 auto;
+      }
+    }
+
+    .sidecar-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    /* ensure svg inside divIcon scales to wrapper */
+    .geojson-svg-icon svg,
+    .geojson-svg-icon img,
+    .external-svg-icon {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      transition: opacity 300ms;
+      opacity: 1;
+    }
+
+    /* optional: ensure marker wrapper doesn't get extra padding/margin */
+    .geojson-svg-icon { line-height: 0; }
+
+    /* ensure svg inside divIcon scales to wrapper and transitions */
+    .geojson-svg-icon svg,
+    .geojson-svg-icon img,
+    .external-svg-icon {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      transition: opacity 350ms;
+      opacity: 1;
+    }
+    .geojson-svg-icon { line-height: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Map -->
+  <div id="map"></div>
+
+  <!-- Title Page -->
+  <div class="title-screen" data-bg="images/bg.jpg">
+    <div class="sidecar sidecar-center" style="width: 50%;">
+      <h1>Reese Street: Athens' Black Educational Hub</h1>
+      <p>Get to know one of Athens's Historic Black Neighborhoods through the eyes of three sisters and educators.</p>
+      <p><strong>Author: </strong> Community Mapping Lab</p>
+      <p><em>Scroll down to begin</em></p>
+    </div>
+  </div>
+
+  <!-- Scrollytelling Container -->
+  <div class="scrolly">
+
+    <!-- Step 0 -->
+    <div class="step"
+         data-line-step data-line-layer="boundary_draw"
+         data-lat="33.958092" data-lng="-83.380543" data-zoom="17"
+         data-side="right" data-width="45%">
+      <div class="sidecar">
+        <h2>Reese Street</h2>
+        <p>The Reese Street neighborhood thrived in the mid-1920s as a cultural hub for Black Athenians, serving as a center of education, business, faith, and community despite ongoing segregation and limited opportunity.</p>
+      </div>
+    </div>
+
+    <!-- Step 2: Line Drawing -->
+    <div class="step"
+         data-lat="33.957500" data-lng="-83.383200" data-layer="church,boundary,athenshighind,knoxinst,reesestreetschool" data-zoom="18"
+         data-side="right" data-width="45%">
+      <div class="sidecar">
+        <h2>Reese Street's Institutions</h2>
+        <p>Reese Street was home to several educational institutions, including the Reese Street School, the Knox Institute, and Athens High and Industrial. Hill First Baptist Church also sits at the corner of North Pope and Reese. These community institutions were central to Reese Street's identity as a hub for Black life and education.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step"
+         data-lat="33.957500" data-lng="-83.383200" data-layer="houses,northfinley,church,boundary,athenshighind,knoxinst,reesestreetschool" data-zoom="18"
+         data-side="right" data-width="50%">
+      <div class="sidecar">
+        <h2>The Jackson-Brydie Clan and their North Finley Street Homes</h2>
+        <p>"Judia Jackson Harris (1870-1960) was a Black educator and social reformer who pioneered a model of teacher training, schooling, and cooperative land ownership in rural Clarke County. Though remembered primarily as an educator, she pursued a broad program of reform that paired land ownership with literacy to advance the interests of Black Georgians during the Jim Crow era."</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step"
+         data-lat="33.957500" data-lng="-83.383200" data-layer="onezeroone,houses,northfinley,church,boundary,athenshighind,knoxinst,reesestreetschool" data-zoom="18"
+         data-side="right" data-width="50%">
+      <div class="sidecar">
+        <h2>The House at 101 North Finley Street</h2>
+        <p></p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step"
+         data-lat="33.957341" data-lng="-83.386222" data-layer="onezeroone,boundary" data-zoom="18"
+         data-float-image="data/cjb.png" data-float-image-lat="33.957800" data-float-image-lng="-83.385000" data-float-image-width="150" data-float-image-height="220"
+         data-side="left" data-width="50%">
+      <div class="sidecar">
+        <h2>The Eldest Sister: Camilla Jackson Brydie</h2>
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "houses",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1 }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -83.383260067681491, 33.957184517891008 ] ] } },
+{ "type": "Feature", "properties": { "id": 2 }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -83.383379484455503, 33.957456794486077 ] ] } },
+{ "type": "Feature", "properties": { "id": 3 }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -83.383478324302942, 33.957820593111158 ] ] } }
+]
+}

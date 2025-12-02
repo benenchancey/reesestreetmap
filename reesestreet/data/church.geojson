@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "church",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1, "full_id": "n358776567", "osm_id": "358776567", "osm_type": "node", "religion": "christian", "amenity": "place_of_worship", "amenity_1": null, "alt_name": null, "name": "Hill First Baptist Church", "gnis:feature_id": "1672772", "ele": "219", "denomination": "baptist" }, "geometry": { "type": "Point", "coordinates": [ -83.3843549, 33.9572273 ] } }
+]
+}
